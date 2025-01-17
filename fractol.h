@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 14:35:12 by tbeauman          #+#    #+#             */
-/*   Updated: 2025/01/14 15:28:14 by tbeauman         ###   ########.fr       */
+/*   Updated: 2025/01/16 13:11:02 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,14 @@
 # include "./minilibx-linux/mlx_int.h"
 # include "typedefs.h"
 # include <math.h>
+# include "keys.h"
+
+int		palette_1(int index, t_env *e);
+int		palette_2(int index, t_env *e);
+int		palette_3(int index, t_env *e);
+int		palette_4(int index, t_env *e);
+int     key_pressed(int kc, t_env *e);
+int		motion_hook(int x, int y, t_env *e);
+void    draw_mandelbrot(t_env *e);
 
 #endif
