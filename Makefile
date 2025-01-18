@@ -6,7 +6,7 @@
 #    By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/14 13:45:41 by tbeauman          #+#    #+#              #
-#    Updated: 2025/01/16 13:10:37 by tbeauman         ###   ########.fr        #
+#    Updated: 2025/01/17 19:04:32 by tbeauman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ MLX=minilibx-linux/libmlx_Linux.a
 CC=cc
 CFLAGS=-Wall -Wextra -Werror -g3 -I./minilibx-linux
 MLXFLAGS=$(MLX) -I$(MLXPATH) -lX11 -lXext 
-SRCS=main.c palettes.c key_hooks.c
+SRCS=main.c palettes.c key_hooks.c mouse_hooks.c
 OBJS=$(SRCS:.c=.o)
 
 all: $(NAME)

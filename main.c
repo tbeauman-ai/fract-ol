@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 13:01:28 by tbeauman          #+#    #+#             */
-/*   Updated: 2025/01/16 13:07:19 by tbeauman         ###   ########.fr       */
+/*   Updated: 2025/01/17 19:05:00 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,7 @@ int     main(int ac, char **av)
     e.img_address = mlx_get_data_addr(e.img, &e.bits_per_pixel, &e.line_length, &e.endian);
     init(&e, av[1][0]);
     draw_mandelbrot(&e);
-    // mlx_mouse_hook(e.win, &mouse_roll, &e);
+    mlx_mouse_hook(e.win, &mouse_hook, &e);
     mlx_key_hook(e.win, &key_pressed, &e);
     mlx_hook(e.win, MotionNotify, PointerMotionMask, &motion_hook, &e);
     mlx_loop(e.mlx);
