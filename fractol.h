@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 14:35:12 by tbeauman          #+#    #+#             */
-/*   Updated: 2025/01/17 19:06:44 by tbeauman         ###   ########.fr       */
+/*   Updated: 2025/01/18 18:17:02 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,17 @@
 # include "typedefs.h"
 # include <math.h>
 # include "keys.h"
+
+double  module(t_complex z);
+t_complex   cpx_mult(t_complex a, t_complex b);
+t_complex   cpx_div(t_complex a, t_complex b);
+t_complex   cpx_inv(t_complex a);
+
+void    putpixel(int x, int y, t_env *e, int i);
+void    draw_mandelbrot(t_env *e);
+
+int     is_escaping(t_complex z, t_complex c, int nb_it, t_env *e);
+t_complex   mandelbrot_rec(t_complex z, t_complex c, t_env *e);
 
 int		palette_1(int index, t_env *e);
 int		palette_2(int index, t_env *e);
