@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 14:35:44 by tbeauman          #+#    #+#             */
-/*   Updated: 2025/01/19 19:39:21 by tbeauman         ###   ########.fr       */
+/*   Updated: 2025/01/19 22:39:06 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ typedef struct  s_env
     double      re_max;
     double      im_min;
     double      im_max;
-    int         bits_per_pixel;
-    int         line_length;
+    int         bpp;
+    int         sline;
     int         endian;
     char        ens;
     int         nb_it;

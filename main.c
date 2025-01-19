@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 13:01:28 by tbeauman          #+#    #+#             */
-/*   Updated: 2025/01/19 21:21:33 by tbeauman         ###   ########.fr       */
+/*   Updated: 2025/01/19 22:43:40 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,14 @@
 
 void	choose_fractal(t_env *e, char ens)
 {
-	char	*ensembles;
-	void	(*draw_functions[6])(struct s_env *);
-	int		(*palettes[6])(int, struct s_env *);
-	int		i;
+	char		*ensembles;
+	static int	(*palettes[6])(int, struct s_env *) = {&palette_4,
+		&palette_2, &palette_newton, &palette_4, &palette_1, &palette_1};
+	int			i;
+	static void	(*draw_functions[6])(struct s_env *) = {&draw_julia,
+		&draw_burning_ship, &draw_newton, &draw_burning_julia, &draw_mandelbrot,
+		&draw_tricorn};
 
-	draw_functions[0] = &draw_julia;
-	draw_functions[1] = &draw_burning_ship;
-	draw_functions[2] = &draw_newton;
-	draw_functions[3] = &draw_burning_julia;
-	draw_functions[4] = &draw_mandelbrot;
-	draw_functions[5] = &draw_tricorn;
-	palettes[0] = &palette_4;
-	palettes[1] = &palette_2;
-	palettes[2] = &palette_newton;
-	palettes[3] = &palette_4;
-	palettes[4] = &palette_1;
-	palettes[5] = &palette_1;
 	ensembles = "jbnimt";
 	i = -1;
 	while (ensembles[++i])
@@ -44,6 +35,11 @@ void	choose_fractal(t_env *e, char ens)
 		}
 	}
 }
+// draw_functions[1] = &draw_burning_ship;
+// draw_functions[2] = &draw_newton;
+// draw_functions[3] = &draw_burning_julia;
+// draw_functions[4] = &draw_mandelbrot;
+// draw_functions[5] = &draw_tricorn;
 
 void	init_newton(t_env *e)
 {
@@ -76,7 +72,7 @@ void	init(t_env *e, char ens)
 
 int	main(int ac, char **av)
 {
-	t_env e;
+	t_env	e;
 
 	e.mlx = mlx_init();
 	if (!e.mlx)
@@ -87,8 +83,7 @@ int	main(int ac, char **av)
 	e.img = mlx_new_image(e.mlx, 600, 400);
 	if (!e.mlx)
 		return (write(2, "image error\n", 12), 0);
-	e.img_address = mlx_get_data_addr(e.img, &e.bits_per_pixel, &e.line_length,
-			&e.endian);
+	e.img_address = mlx_get_data_addr(e.img, &e.bpp, &e.sline, &e.endian);
 	if (ac == 1)
 		display_menu(&e);
 	else
