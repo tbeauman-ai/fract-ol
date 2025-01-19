@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 11:58:44 by tbeauman          #+#    #+#             */
-/*   Updated: 2025/01/19 23:07:04 by tbeauman         ###   ########.fr       */
+/*   Updated: 2025/01/19 23:20:46 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ int	palette_4(int index, t_env *e)
 	int			color2;
 
 	(void)e;
-	t = (index % 25) / 25.0;
-	color1 = colors[(index / 100) * 12];
-	color2 = colors[((index / 100) + 1) * 12];
+	t = (index % 50) / 50.0;
+	color1 = colors[(index / 50) % 12];
+	color2 = colors[((index / 50) + 1) % 12];
 	return (interpolate_color(color1, color2, t));
 }
 
