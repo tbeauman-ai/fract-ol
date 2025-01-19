@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 14:35:44 by tbeauman          #+#    #+#             */
-/*   Updated: 2025/01/16 11:59:51 by tbeauman         ###   ########.fr       */
+/*   Updated: 2025/01/19 12:26:44 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@ typedef struct  s_env
     int         nb_it;
     double      pixel_size;
     int         puissance;
+    t_complex   jul;
+    int         fix_julia;
+    void        (*draw_fract)(struct s_env *);
 	int				(*palette)(int, struct s_env*);
 }               t_env;
 

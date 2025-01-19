@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 12:55:29 by tbeauman          #+#    #+#             */
-/*   Updated: 2025/01/16 13:13:37 by tbeauman         ###   ########.fr       */
+/*   Updated: 2025/01/19 18:49:12 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,34 +22,16 @@ void	clear_image(char **address)
 		(*address)[i++] = 0;
 }
 
-int		motion_hook(int x, int y, t_env *e)
+void    reset_image(t_env *e)
 {
-    (void)x;
-    (void)e;
-    (void)y;
-	return (1);
+    mlx_destroy_image(e->mlx, e->img);
+    e->img = mlx_new_image(e->mlx, 600, 400);
+    e->img_address = mlx_get_data_addr(e->img, &e->bits_per_pixel, &e->line_length, &e->endian);
 }
 
-int     key_pressed(int kc, t_env *e)
+
+void    move_image(int kc, t_env *e)
 {
-    if (kc == KEY_1)
-        e->palette = &palette_1;
-    if (kc == KEY_2)
-        e->palette = &palette_2;
-    if (kc == KEY_3)
-        e->palette = &palette_3;
-    if (kc == KEY_4)
-        e->palette = &palette_4;
-    if (kc == KEY_ESC)
-        exit (1); // /!\ LEAKS
-    if (kc == KEY_P)
-        e->puissance += 1;
-    if (kc == KEY_O)
-        e->puissance -= 1;
-    if (kc == KEY_PLUS)
-        e->nb_it += 5;
-    if (kc == KEY_MOINS)
-        e->nb_it -= 5;
     if (kc == KEY_LEFT || kc == KEY_RIGHT)
     {
         if (kc == KEY_LEFT)
@@ -76,8 +58,39 @@ int     key_pressed(int kc, t_env *e)
             e->im_max -= e->pixel_size * 50;
         }
     }
-    clear_image(&e->img_address);
+}
+void    toggle(int  *fix)
+{
+    if (*fix)
+        *fix = 0;
+    else
+        *fix = 1;
+}
+int     key_pressed(int kc, t_env *e)
+{
+    if (kc == KEY_1)
+        e->palette = &palette_1;
+    if (kc == KEY_2)
+        e->palette = &palette_2;
+    if (kc == KEY_3)
+        e->palette = &palette_3;
+    if (kc == KEY_4)
+        e->palette = &palette_4;
+    if (kc == KEY_ESC && clear_mlx(e))
+        exit (1); // /!\ LEAKS
+    if (kc == KEY_P)
+        e->puissance += 1;
+    if (kc == KEY_O)
+        e->puissance -= 1;
+    if (kc == KEY_F)
+        toggle(&e->fix_julia);
+    if (kc == KEY_PLUS)
+        e->nb_it += 5;
+    if (kc == KEY_MOINS)
+        e->nb_it -= 5;
+    move_image(kc, e);
+    reset_image(e);
     mlx_clear_window(e->mlx, e->win);
-    draw_mandelbrot(e);
+    e->draw_fract(e);
     return (1);
 }

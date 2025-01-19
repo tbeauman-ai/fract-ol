@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 13:02:20 by tbeauman          #+#    #+#             */
-/*   Updated: 2025/01/16 13:20:56 by tbeauman         ###   ########.fr       */
+/*   Updated: 2025/01/19 15:48:42 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 # define KEY_O 111
 # define KEY_P 112
 # define KEY_S 115
+# define KEY_T 116
 # define KEY_LEFT 65361
 # define KEY_UP 65362
 # define KEY_RIGHT 65363

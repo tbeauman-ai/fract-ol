@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 13:01:28 by tbeauman          #+#    #+#             */
-/*   Updated: 2025/01/18 18:16:17 by tbeauman         ###   ########.fr       */
+/*   Updated: 2025/01/19 19:02:26 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,52 @@
 # include <stdio.h>
 # include <math.h>
 
+void    choose_fractal(t_env *e, char ens)
+{
+    char    *ensembles;
+    void        (*draw_functions[6])(struct s_env *);
+	int				(*palettes[6])(int, struct s_env*);
+
+    int     i;
+
+    draw_functions[0] = &draw_julia;
+    draw_functions[1] = &draw_burning_ship;
+    // draw_functions[2] = &draw_newton;
+    // draw_functions[3] = &draw_burning_julia;
+    draw_functions[4] = &draw_mandelbrot;
+    draw_functions[5] = &draw_tricorn;
+    palettes[0] = &palette_4;
+    palettes[1] = &palette_2;
+    // palettes[2] = &palette_newton;
+    // palettes[3] = &palette_4;
+    palettes[4] = &palette_1;
+    palettes[5] = &palette_1;
+    ensembles = "jbnimt";
+    i = -1;
+    while (ensembles[++i])
+    {
+        if (ensembles[i] == ens)
+        {
+            e->palette = palettes[i];
+            e->draw_fract = draw_functions[i];
+        }
+    }
+}
+
+// void    init_newton(t_env *e)
+// {
+//     e->newton_roots.r1.re = 1;
+//     e->newton_roots.r1.im = 0;
+//     e->newton_roots.r2.re = -1 / 2;
+//     e->newton_roots.r2.im = sqrt(3) / 2;
+//     e->newton_roots.r3.re = -1 / 2;
+//     e->newton_roots.r3.im = sqrt(3) / -2;
+//     e->nb_it = 10;
+// }
+
 void    init(t_env *e, char ens)
 {
+    choose_fractal(e, ens);
     e->nb_it = 50;
     e->pixel_size = 0.01;
     e->re_min = -3;
@@ -24,7 +68,11 @@ void    init(t_env *e, char ens)
     e->im_max = 2;
     e->ens = ens;
     e->puissance = 2;
-    e->palette = &palette_4;
+    e->jul.re = 0;
+    e->jul.im = 0;
+    e->fix_julia = 0;
+    // if (ens == 'n')
+    //     init_newton(e);
 }
 
 // int     main(void)
@@ -46,6 +94,7 @@ int     main(int ac, char **av)
         printf("argument needed\n");
         return (0);
     }
+    init(&e, av[1][0]);
     e.mlx = mlx_init();
     if (!e.mlx)
         printf ( "connection error" );
@@ -56,11 +105,11 @@ int     main(int ac, char **av)
     if (!e.mlx)
         printf ( "image error" );
     e.img_address = mlx_get_data_addr(e.img, &e.bits_per_pixel, &e.line_length, &e.endian);
-    init(&e, av[1][0]);
-    draw_mandelbrot(&e);
-    mlx_mouse_hook(e.win, &mouse_hook, &e);
+    e.draw_fract(&e);
+    mlx_mouse_hook(e.win, &mouse_roll, &e);
     mlx_key_hook(e.win, &key_pressed, &e);
     mlx_hook(e.win, MotionNotify, PointerMotionMask, &motion_hook, &e);
     mlx_loop(e.mlx);
+    clear_mlx(&e);
     return (0);
 }

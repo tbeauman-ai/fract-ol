@@ -1,38 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   palette.c                                          :+:      :+:    :+:   */
+/*   palettes.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 11:58:44 by tbeauman          #+#    #+#             */
-/*   Updated: 2025/01/16 12:01:15 by tbeauman         ###   ########.fr       */
+/*   Updated: 2025/01/19 15:34:30 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
+int		interpolate_color(int color1, int color2, double t)
+{
+	int r = ((color1 >> 16) & 0xFF) * (1 - t) + ((color2 >> 16) & 0xFF) * t;
+	int g = ((color1 >> 8) & 0xFF) * (1 - t) + ((color2 >> 8) & 0xFF) * t;
+	int b = (color1 & 0xFF) * (1 - t) + (color2 & 0xFF) * t;
+	return ((r << 16) | (g << 8) | b);
+}
+
+
 int		palette_2(int index, t_env *e)
 {
 	(void)e;
-	if (index < 5)
-		return (0x00b3bbd8);
-	else if (index < 10)
-		return (0x00b9c8ff);
-	else if (index < 20)
-		return (0x00708fff);
-	else if (index < 30)
-		return (0x003159e7);
-	else if (index < 40)
-		return (0x000e32b4);
-	else if (index < 50)
-		return (0x000b2583);
-	else if (index < 60)
-		return (0x006185a);
-	else if (index < 100)
-		return (0x00010c36);
+	if (index < 100)
+		return (interpolate_color(0x00ffe5e5, 0x00330000, index / 100.0));
 	else
-		return (0x00180129);
+		return (0x00330000);
 }
 
 int		palette_4(int index, t_env *e)
