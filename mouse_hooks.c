@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 18:56:46 by tbeauman          #+#    #+#             */
-/*   Updated: 2025/01/19 18:49:37 by tbeauman         ###   ########.fr       */
+/*   Updated: 2025/01/19 19:48:07 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int     mouse_roll(int bt, int x, int y, t_env *e)
 
 int		motion_hook(int x, int y, t_env *e)
 {
-	if (e->ens == 'j' && e->fix_julia == 0)
+	if ((e->ens == 'j' || e->ens == 'i') && e->fix_julia == 0)
 	{
         reset_image(e);
 		e->jul.re = e->re_min + x * (e->re_max - e->re_min) / 600;

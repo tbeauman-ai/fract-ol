@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 11:58:44 by tbeauman          #+#    #+#             */
-/*   Updated: 2025/01/19 15:34:30 by tbeauman         ###   ########.fr       */
+/*   Updated: 2025/01/19 21:17:46 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		palette_2(int index, t_env *e)
 {
 	(void)e;
 	if (index < 100)
-		return (interpolate_color(0x00ffe5e5, 0x00330000, index / 100.0));
+		return (interpolate_color(0x00ffe5e5, 0x00330000, (index / 100.0)));
 	else
 		return (0x00330000);
 }
@@ -33,38 +33,26 @@ int		palette_2(int index, t_env *e)
 int		palette_4(int index, t_env *e)
 {
 	(void)e;
-	if (index % 12 == 1)
-		return (0x00FFFF66);
-	else if (index % 12 == 2)
-		return (0x00ff6754);
-	else if (index % 12 == 3)
-		return (0x00FF6600);
-	else if (index % 12 == 4)
-		return (0x0000FF00);
-	else if (index % 12 == 5)
-		return (0x000099FF);
-	else if (index % 12 == 6)
-		return (0x00f8a72b);
-	else if (index % 12 == 7)
-		return (0x000044fa);
-	else if (index % 12 == 8)
-		return (0x00fa48f0);
-	else if (index % 12 == 9)
-		return (0x00c12d78);
-	else if (index % 12 == 10)
-		return (0x0078ff00);
-	else if (index % 12 == 11)
-		return (0x00aa77ff);
-	else
-		return (0x00ff88cc);
+	const int		colors[12] = {0x00FFFF66, 0x00ff6754, 0x00FF6600, 0x0000FF00,
+        0x000099FF, 0x00f8a72b, 0x000044fa, 0x00fa48f0,
+        0x00c12d78, 0x0078ff00, 0x00aa77ff, 0x00ff88cc
+    };
+	int		num_colors = sizeof(colors) / sizeof(colors[0]);
+	double	t = (index % 25) / 25.0;
+	int		color1= colors[(index / 100) * num_colors];
+	int		color2= colors[((index / 100) + 1) * num_colors];
+	return (interpolate_color(color1, color2, t));
 }
 
 int		palette_3(int index, t_env *e)
 {
-	if (index == e->nb_it)
-		return (0);
-	srand(0);
-	return (rand() + palette_4(index, e));
+	const int		colors[12] = {0x00FFFF66, 0x00ff6754, 0x00FF6600, 0x0000FF00,
+        0x000099FF, 0x00f8a72b, 0x000044fa, 0x00fa48f0,
+        0x00c12d78, 0x0078ff00, 0x00aa77ff, 0x00ff88cc
+    };
+
+	(void)e;
+	return (colors[index % 12]);
 }
 
 int		palette_1(int index, t_env *e)
@@ -75,7 +63,7 @@ int		palette_1(int index, t_env *e)
 	return (index * 777777 / 1000);
 }
 
-int		newton_palette(int ret, t_env *e)
+int		palette_newton(int ret, t_env *e)
 {
 	(void)e;
 	if (ret == 1)

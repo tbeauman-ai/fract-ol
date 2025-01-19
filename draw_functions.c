@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 18:14:55 by tbeauman          #+#    #+#             */
-/*   Updated: 2025/01/19 18:59:40 by tbeauman         ###   ########.fr       */
+/*   Updated: 2025/01/19 19:47:23 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,4 +131,29 @@ void    draw_tricorn(t_env *e)
         x++;
     }
     mlx_put_image_to_window(e->mlx, e->win, e->img, 0, 0);
+}
+
+void	draw_burning_julia(t_env *e)
+{
+	int		x;
+	int		y;
+	t_complex	z0;
+	int		index;
+
+	x = 0;
+	while (x < 600)
+	{
+		y = 0;
+		while (y < 400)
+		{
+			z0.re = x * e->pixel_size + e->re_min;
+			z0.im = y * e->pixel_size + e->im_min;
+			if ((index = is_escaping_burning_jul(z0, e->jul, e->nb_it, e)) < e->nb_it
+					&& index > 0)
+				putpixel(x, y, e, index);
+			y++;
+		}
+		x++;
+	}
+	mlx_put_image_to_window(e->mlx, e->win, e->img, 0, 0);
 }

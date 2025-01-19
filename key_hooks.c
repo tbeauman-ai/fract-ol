@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 12:55:29 by tbeauman          #+#    #+#             */
-/*   Updated: 2025/01/19 18:49:12 by tbeauman         ###   ########.fr       */
+/*   Updated: 2025/01/19 20:59:19 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,20 @@ int     key_pressed(int kc, t_env *e)
         e->puissance -= 1;
     if (kc == KEY_F)
         toggle(&e->fix_julia);
+    if (kc == KEY_J)
+        init(e, 'j');
+    if (kc == KEY_M)
+        init(e, 'm');
+    if (kc == KEY_N)
+        init(e, 'n');
+    if (kc == KEY_B)
+        init(e, 'b');
+    if (kc == KEY_I)
+        init(e, 'i');
+    if (kc == KEY_T)
+        init(e, 't');
+    if (kc == KEY_TAB)
+        e->ens = 0;
     if (kc == KEY_PLUS)
         e->nb_it += 5;
     if (kc == KEY_MOINS)
@@ -91,6 +105,9 @@ int     key_pressed(int kc, t_env *e)
     move_image(kc, e);
     reset_image(e);
     mlx_clear_window(e->mlx, e->win);
-    e->draw_fract(e);
+    if (e->ens)
+        e->draw_fract(e);
+    else
+        display_menu(e);
     return (1);
 }
