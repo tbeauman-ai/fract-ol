@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 13:01:28 by tbeauman          #+#    #+#             */
-/*   Updated: 2025/01/19 22:43:40 by tbeauman         ###   ########.fr       */
+/*   Updated: 2025/01/21 18:17:11 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,6 @@ void	choose_fractal(t_env *e, char ens)
 		}
 	}
 }
-// draw_functions[1] = &draw_burning_ship;
-// draw_functions[2] = &draw_newton;
-// draw_functions[3] = &draw_burning_julia;
-// draw_functions[4] = &draw_mandelbrot;
-// draw_functions[5] = &draw_tricorn;
 
 void	init_newton(t_env *e)
 {

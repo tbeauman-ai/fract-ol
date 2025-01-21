@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 14:35:44 by tbeauman          #+#    #+#             */
-/*   Updated: 2025/01/19 22:39:06 by tbeauman         ###   ########.fr       */
+/*   Updated: 2025/01/21 18:14:26 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,22 @@ typedef struct  s_env
     void        *win;
     void        *img;
     char        *img_address;
+    int         bpp;
+    int         sline;
+    int         endian;
+    double      pixel_size;
     double      re_min;
     double      re_max;
     double      im_min;
     double      im_max;
-    int         bpp;
-    int         sline;
-    int         endian;
     char        ens;
     int         nb_it;
-    double      pixel_size;
     int         puissance;
     t_complex   jul;
     t_roots     newton_roots;
     int         fix_julia;
     void        (*draw_fract)(struct s_env *);
-	int				(*palette)(int, struct s_env*);
+	int			(*palette)(int, struct s_env*);
 }               t_env;
 
 
